@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <algorithm>
 #include <thread>
 #include "ParseIni.h"
@@ -7,7 +8,7 @@ int main()
 {
 	WwFoundation::ParseIni paser("updateClient.ini");
 	paser.parse();
-	auto instal_packet_name = paser.getValue("InstallPacketNmaeConfig", "name");
+	auto instal_packet_name = paser.getValue("InstallPacketNameConfig", "name");
 	auto port = static_cast<uint16_t>(std::atoi(paser.getValue("PortConfig", "port").c_str()));
 	auto ip_set = paser.getSectionValue("IpConfig");
 
