@@ -11,7 +11,7 @@ void update::server::UpdateInstallPacket::update(const std::string& install_pack
 	ZeroMemory(&si, sizeof(si));
 	std::string cmdLine = "../update/";
 	cmdLine.append(install_packet_name).append(" /COMPONENTS=")
-		.append("\"").append(last_time_components).append("\"").append(" /verysilent");
+		.append("\"").append(last_time_components).append("\"").append(" /verysilent /SUPPRESSMSGBOXES");
 	auto ret = CreateProcess(NULL, const_cast<char*>(cmdLine.c_str()),
 		NULL, NULL, false, 0, NULL, NULL, &si, &pi);
 	if (ret != 0)
