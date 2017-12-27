@@ -14,16 +14,21 @@ namespace update
 		const int HEAD_SIZE = 16;
 		const int SEND_SIZE_MAX = 1024;
 
-		class session : public std::enable_shared_from_this<session>
+		class Session : public std::enable_shared_from_this<Session>
 		{
 		private:
 			boost::asio::ip::tcp::socket socket_;
 			boost::asio::windows::random_access_handle file_;
 		public:
-			explicit session(boost::asio::io_service& io_service) :socket_(io_service), file_(io_service) {}
-			~session() { printf("delete\n"); }
+			explicit Session(boost::asio::io_service& io_service) :socket_(io_service), file_(io_service) {}
+			~Session() { printf("delete\n"); }
 			boost::asio::ip::tcp::socket& socket() { return socket_; }
 			void go();
+		private:
+			void setPacketRemain(std::shared_ptr<char> send_buffer, const char* data_buffer, const uint16_t data_size);
+		private:
+			Session(const Session&) = delete;
+			Session& operator=(const Session&) = delete;
 		};
 	}
 }

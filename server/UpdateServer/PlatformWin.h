@@ -11,7 +11,7 @@ namespace update
 		{
 		public:
 		public:
-			static std::string getRegistryValue(const std::string& sub_key);
+			static std::string getRegistryValue(const std::string& sub_key, const std::string& value_key);
 			static void makeProcess(const std::string& cmd_line);
 			static void makeDirectory(const std::string& folder);
 			static void* makeFile(const std::string& name);

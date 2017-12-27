@@ -21,7 +21,7 @@ void update::server::Server::run()
 		for (;;)
 		{
 			boost::system::error_code ec;
-			auto new_session = std::make_shared<session>(io_service);
+			auto new_session = std::make_shared<Session>(io_service);
 			acceptor.async_accept(new_session->socket(), yield[ec]);
 			if (!ec)
 				new_session->go();

@@ -28,10 +28,24 @@ namespace update
 				WwFoundation::ParseIni parser(INI_DIR);
 				parser.parse();
 				std::string uid = parser.getValue("UidConfig", uid_partial);
+				std::string sub_key_front = "SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\";
+				auto sub_key = sub_key_front.append(uid).append("_is1");
+				return PlatformWin::getRegistryValue(sub_key, "Inno Setup: Selected Components");
+			}
+
+			std::string getDisplayVersion()
+			{
+				auto pos1 = update_file_name_.find_last_of("_");
+				auto pos2 = update_file_name_.find_last_of(".");
+				auto uid_partial = update_file_name_.substr(pos1 + 1, pos2 - pos1 - 1);
+
+				WwFoundation::ParseIni parser(INI_DIR);
+				parser.parse();
+				std::string uid = parser.getValue("UidConfig", uid_partial);
 
 				std::string sub_key_front = "SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\";
 				auto sub_key = sub_key_front.append(uid).append("_is1");
-				return PlatformWin::getRegistryValue(sub_key);
+				return PlatformWin::getRegistryValue(sub_key, "DisplayVersion");
 			}
 
 			std::string& getFileName() { return update_file_name_; }
@@ -63,6 +77,8 @@ namespace update
 			Update(const std::string& update_file_name) :UpdateBase(update_file_name) {}
 
 			std::string getLastTimeComponents() { return UpdateBase::getComponents(); }
+
+			std::string getLastDisplayVersion() { return UpdateBase::getDisplayVersion(); }
 		};
 	}
 }

@@ -1,5 +1,7 @@
 #include "Server.h"
 #include "LogMacros.h"
+#include <map>
+#include <type_traits>
 int main()
 {
 	try

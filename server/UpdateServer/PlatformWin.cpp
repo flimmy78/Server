@@ -2,7 +2,7 @@
 #include <sstream>
 #include <Windows.h>
 
-std::string update::server::PlatformWin::getRegistryValue(const std::string & sub_key)
+std::string update::server::PlatformWin::getRegistryValue(const std::string & sub_key, const std::string& value_key)
 {
 	HKEY hkey;
 	auto ret = RegCreateKeyExA(HKEY_LOCAL_MACHINE, sub_key.c_str(),
@@ -12,7 +12,7 @@ std::string update::server::PlatformWin::getRegistryValue(const std::string & su
 		DWORD size = 1024;
 		char buf[1024] = { 0 };
 		DWORD type = REG_SZ;
-		ret = RegQueryValueExA(hkey, "Inno Setup: Selected Components", NULL, &type, reinterpret_cast<BYTE *>(buf), &size);
+		ret = RegQueryValueExA(hkey, value_key.c_str(), NULL, &type, reinterpret_cast<BYTE *>(buf), &size);
 		if (0 == ret)
 		{
 			std::string components = buf;
@@ -21,14 +21,14 @@ std::string update::server::PlatformWin::getRegistryValue(const std::string & su
 		else
 		{
 			std::ostringstream message;
-			message << "RegQueryValueExA failed with error_code:" << ret;
+			message << "RegQueryValueExA(" << value_key << ")" << " failed with error_code:" << ret;
 			throw std::runtime_error(message.str());
 		}
 	}
 	else
 	{
 		std::ostringstream message;
-		message << "RegCreateKeyExA failed with error_code:" << ret;
+		message << "RegCreateKeyExA(" << sub_key << ")" << " failed with error_code:" << ret;
 		throw std::runtime_error(message.str());
 	}
 }
@@ -49,7 +49,7 @@ void update::server::PlatformWin::makeProcess(const std::string & cmd_line)
 	else
 	{
 		std::ostringstream message;
-		message << "CreateProcess failed with error_code:" << GetLastError();
+		message << "CreateProcess(" << cmd_line << ")" << " failed with error_code:" << GetLastError();
 		throw std::runtime_error(message.str());
 	}
 }
@@ -63,7 +63,7 @@ void update::server::PlatformWin::makeDirectory(const std::string & folder)
 		if (ret == 0)
 		{
 			std::ostringstream message;
-			message << "CreateDirectory failed with error_code:" << GetLastError();
+			message << "CreateDirectoryA(" << folder << ")" << " failed with error_code:" << GetLastError();
 			throw std::runtime_error(message.str());
 		}
 	}
@@ -120,7 +120,7 @@ void update::server::PlatformWin::deleteDirectory(const std::string& dir)
 				if (ret == 0)
 				{
 					std::ostringstream message;
-					message << "DeleteFileA failed with error_code:" << GetLastError();
+					message << "DeleteFileA(" << file_name_temp << ")" << " failed with error_code:" << GetLastError();
 					throw std::runtime_error(message.str());
 				}
 			}
@@ -132,7 +132,7 @@ void update::server::PlatformWin::deleteDirectory(const std::string& dir)
 	if (bRet == 0) 
 	{
 		std::ostringstream message;
-		message << "RemoveDirectoryA failed with error_code:" << GetLastError();
+		message << "RemoveDirectoryA(" << dir << ")" << " failed with error_code:" << GetLastError();
 		throw std::runtime_error(message.str());
 	}
 }
