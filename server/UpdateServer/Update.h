@@ -3,14 +3,14 @@
 #define SERVER_SERVER_UPDATESERVER_H
 #include <string>
 #include <memory>
-#include <Windows.h>
 #include "ParseIni.h"
+#include "PlatformWin.h"
 
 namespace update
 {
 	namespace server
 	{
-		const std::string INI_DIR = "updateServer.ini";
+		const std::string INI_DIR = "UpdateServer.ini";
 
 		class UpdateBase
 		{
@@ -31,33 +31,7 @@ namespace update
 
 				std::string sub_key_front = "SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\";
 				auto sub_key = sub_key_front.append(uid).append("_is1");
-				HKEY hkey;
-				auto ret = RegCreateKeyEx(HKEY_LOCAL_MACHINE, sub_key.c_str(),
-					0, NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &hkey, NULL);
-				if (ret == 0)
-				{
-					DWORD size = 1024;
-					char buf[1024] = { 0 };
-					DWORD type = REG_SZ;
-					ret = RegQueryValueEx(hkey, "Inno Setup: Selected Components", NULL, &type, reinterpret_cast<BYTE *>(buf), &size);
-					if (0 == ret)
-					{
-						std::string components = buf;
-						return components;
-					}
-					else
-					{
-						std::ostringstream message;
-						message << "RegQueryValueEx failed with error_code:" << ret;
-						throw std::runtime_error(message.str());
-					}
-				}
-				else
-				{
-					std::ostringstream message;
-					message << "RegCreateKeyEx failed with error_code:" << ret;
-					throw std::runtime_error(message.str());
-				}
+				return PlatformWin::getRegistryValue(sub_key);
 			}
 
 			std::string& getFileName() { return update_file_name_; }

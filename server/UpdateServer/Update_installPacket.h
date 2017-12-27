@@ -8,7 +8,7 @@ namespace update
 {
 	namespace server
 	{
-		const std::string FILE_FOLDER = "../update/";
+		const std::string FILE_FOLDER = "../update";
 
 		struct UpdateInstallPacket
 		{

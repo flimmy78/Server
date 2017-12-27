@@ -27,6 +27,9 @@
     <Filter Include="Session">
       <UniqueIdentifier>{8a545052-87c8-4f30-99f8-2a72f1652796}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Platform_win">
+      <UniqueIdentifier>{be7bf24a-6459-4f80-a1be-f972aec97801}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp">
@@ -43,6 +46,9 @@
     </ClCompile>
     <ClCompile Include="Update_installPacket.cpp">
       <Filter>Update_installPacket</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformWin.cpp">
+      <Filter>Platform_win</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -69,6 +75,9 @@
     </ClInclude>
     <ClInclude Include="Update_binaryReplace.h">
       <Filter>Update_binaryReplace</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformWin.h">
+      <Filter>Platform_win</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

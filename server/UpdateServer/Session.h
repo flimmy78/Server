@@ -11,6 +11,9 @@ namespace update
 {
 	namespace server
 	{
+		const int HEAD_SIZE = 16;
+		const int SEND_SIZE_MAX = 1024;
+
 		class session : public std::enable_shared_from_this<session>
 		{
 		private:

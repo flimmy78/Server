@@ -151,6 +151,7 @@
   <ItemGroup>
     <ClCompile Include="App.cpp" />
     <ClCompile Include="ParseIni.cpp" />
+    <ClCompile Include="PlatformWin.cpp" />
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="Session.cpp" />
     <ClCompile Include="Update_installPacket.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="crashDump.h" />
     <ClInclude Include="LogMacros.h" />
     <ClInclude Include="ParseIni.h" />
+    <ClInclude Include="PlatformWin.h" />
     <ClInclude Include="Server.h" />
     <ClInclude Include="Session.h" />
     <ClInclude Include="Update.h" />

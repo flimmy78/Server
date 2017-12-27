@@ -7,7 +7,7 @@ namespace update
 {
 	namespace server
 	{
-		const std::string INI_DIR = "updateServer.ini";
+		const std::string INI_DIR = "UpdateServer.ini";
 
 		class Server
 		{

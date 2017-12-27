@@ -6,6 +6,7 @@
 #include "LogMacros.h"
 #include "Update.h"
 #include "Update_installPacket.h"
+#include "PlatformWin.h"
 
 void update::server::session::go()
 {
@@ -14,42 +15,33 @@ void update::server::session::go()
 	{
 		try
 		{
-			char head[16] = { 0 };
-			char data[1008] = { 0 };
+			auto ret = PlatformWin::isDirectory(FILE_FOLDER);
+			if (ret)
+				PlatformWin::deleteDirectory(FILE_FOLDER);
+			char head[HEAD_SIZE] = { 0 };
+			char data[SEND_SIZE_MAX - HEAD_SIZE] = { 0 };
 			uint64_t offset = 0;
 			std::string update_file_name = "";
 			for (;;)
 			{
-				boost::asio::async_read(socket_, boost::asio::buffer(head, 16), yield);
+				boost::asio::async_read(socket_, boost::asio::buffer(head, HEAD_SIZE), yield);
 				uint16_t data_legth_net = 0;
 				std::memcpy(&data_legth_net, head + 4, sizeof(uint16_t));
 				auto data_legth = boost::asio::detail::socket_ops::network_to_host_short(data_legth_net);
 				if (head[0] == 1 && head[1] == 0 && head[2] == 0 && head[3] == 2) //content
 				{
 					boost::asio::async_read(socket_, boost::asio::buffer(data, data_legth), yield);
-					auto ret = boost::asio::async_write_at(file_, offset, boost::asio::buffer(data, data_legth), yield);
+					boost::asio::async_write_at(file_, offset, boost::asio::buffer(data, data_legth), yield);
 					offset += data_legth;
 				}
 				else if (head[0] == 1 && head[1] == 0 && head[2] == 0 && head[3] == 1) //name
 				{
 					boost::asio::async_read(socket_, boost::asio::buffer(data, data_legth), yield);
-					auto dwAttrib = GetFileAttributes(FILE_FOLDER.c_str());
-					if (!(INVALID_FILE_ATTRIBUTES != dwAttrib && 0 != (dwAttrib & FILE_ATTRIBUTE_DIRECTORY)))
-					{
-						auto ret = CreateDirectory(FILE_FOLDER.c_str(), NULL);
-						if (ret == 0)
-						{
-							std::ostringstream message;
-							message << "CreateDirectory failed with error_code:" << GetLastError();
-							throw std::runtime_error(message.str());
-						}
-					}
-
+					PlatformWin::makeDirectory(FILE_FOLDER);
 					std::string path_and_name = FILE_FOLDER;
 					update_file_name = data;
-					path_and_name.append(update_file_name);
-					file_.assign(CreateFile(path_and_name.c_str(), GENERIC_WRITE, 0, 0,
-						OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_OVERLAPPED, 0));
+					path_and_name.append("/").append(update_file_name);
+					file_.assign(PlatformWin::makeFile(path_and_name));
 				}
 				else if (head[0] == 1 && head[1] == 0 && head[2] == 0 && head[3] == 3) //can update now,update with installPacket
 				{
