@@ -2,9 +2,11 @@
 #ifndef SERVER_SERVER_UPDATESERVER_SESSION_H
 #define SERVER_SERVER_UPDATESERVER_SESSION_H
 #include <memory>
+#include <string>
 #include <boost/asio/io_service.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/windows/random_access_handle.hpp>
+#include <boost/asio/spawn.hpp>
 
 //namespace update { namespace server { template<typename UpdateMethod> class Update; } }
 namespace update
@@ -26,6 +28,7 @@ namespace update
 			void go();
 		private:
 			void setPacketRemain(std::shared_ptr<char> send_buffer, const char* data_buffer, const uint16_t data_size);
+			void sendErrorMessage(const std::string& message_content, boost::asio::yield_context& yield);
 		private:
 			Session(const Session&) = delete;
 			Session& operator=(const Session&) = delete;

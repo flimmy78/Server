@@ -3,7 +3,7 @@
 #define SERVER_SERVER_UPDATESERVER_UPDATEINSTALLPACKET_H
 
 #include <string>
-
+#include <vector>
 namespace update
 {
 	namespace server
@@ -12,7 +12,7 @@ namespace update
 
 		struct UpdateInstallPacket
 		{
-			void update(const std::string& install_packet_name, const std::string& last_time_components);
+			void update(const std::vector<std::string>& update_file_name_vec, const std::string& last_time_components);
 		};
 	}
 }
