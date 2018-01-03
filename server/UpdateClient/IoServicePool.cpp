@@ -26,7 +26,7 @@ void update::client::IoServicePool::start()
 			}
 			catch (std::exception& e)
 			{
-				printf("io_service thread with %s\n", e.what());
+				printf("io_service thread exit with %s\n", e.what());
 			}
 			catch (...)
 			{

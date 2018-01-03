@@ -17,7 +17,7 @@ int main()
 	std::for_each(ip_set.begin(), ip_set.end(),
 		[&client, &port, &instal_packet_name](auto& pair)
 	{
-		client.makeSession(pair.second, port, instal_packet_name);
+		client.makeSession(pair.second, port, instal_packet_name, "./", std::vector<std::string>{instal_packet_name});
 	});
 	std::this_thread::sleep_for(std::chrono::milliseconds(1000)); //for io_service do real work
 	client.stop();
