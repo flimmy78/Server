@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="BaseFile">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="BaseFile\Client">
+      <UniqueIdentifier>{577237a4-d9a2-473a-b614-c242ec803b80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BaseFile\IoServicePool">
+      <UniqueIdentifier>{379873f8-f8dc-4e59-890b-6c0bf228f261}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BaseFile\Session">
+      <UniqueIdentifier>{eb3812a8-fd37-4bd1-a89e-9440677c0331}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Client.cpp">
+      <Filter>BaseFile\Client</Filter>
+    </ClCompile>
+    <ClCompile Include="IoServicePool.cpp">
+      <Filter>BaseFile\IoServicePool</Filter>
+    </ClCompile>
+    <ClCompile Include="Session.cpp">
+      <Filter>BaseFile\Session</Filter>
+    </ClCompile>
+    <ClCompile Include="UpdateClient.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Client.h">
+      <Filter>BaseFile\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="IoServicePool.h">
+      <Filter>BaseFile\IoServicePool</Filter>
+    </ClInclude>
+    <ClInclude Include="Session.h">
+      <Filter>BaseFile\Session</Filter>
+    </ClInclude>
+    <ClInclude Include="UpdateClient.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="UpdateClientDef.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
