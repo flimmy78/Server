@@ -212,10 +212,10 @@ void ITS::CameraManager::notifyCameraChangedThread() noexcept
 								CAMERA_CAR_FLOW << "," << CAMERA_UPLOAD_TIME << "," <<
 								CAMERA_LANE_NUMBER << ")"
 								<< " values (" << "'" << camera_number << "'"
-								<< "," << "'" << i << "'"
+								<< "," << "'" << i + 1 << "'"
 								<< "," << "'" << vfsin->atFlowStat[i].dwStatCnts << "'"
 								<< "," << "to_date('" << time_str << "','YYYY-MM-DD HH24:MI:SS')";
-							if (i <= static_cast<int>(lane_number_size))
+							if ((i + 1) <= static_cast<int>(lane_number_size))
 								temp << "," << "'" << lane_number[i] << "'" << ")";
 							else
 								temp << "," << "'" << "" << "'" << ")";
