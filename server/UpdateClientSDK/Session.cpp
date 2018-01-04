@@ -52,8 +52,7 @@ void update::client::Session::go(const UpdateStatusCallback& updateStatusCb)
 						message << "GetFileSize(" << path_update_file_name << ")" << "error with:" << GetLastError();
 						throw std::runtime_error(message.str());
 					}
-					file_size = file_size & size_high;
-					file_size = (file_size << 32) & size_low;
+					file_size = (static_cast<uint64_t>(size_high)) << 32 | size_low;
 				}
 				else
 				{
