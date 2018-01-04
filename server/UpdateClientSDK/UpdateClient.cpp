@@ -31,5 +31,12 @@ int addSession(const std::string & ip, const uint16_t port, const std::string & 
 
 int stop()
 {
-	return 0;
+	try
+	{
+		update::client::Client::Instance().stop();
+		return 0;
+	}
+	catch (const std::exception&){}
+	catch (...) {}
+	return -1;
 }

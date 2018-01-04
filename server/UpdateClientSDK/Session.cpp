@@ -8,7 +8,7 @@ void update::client::Session::go(const UpdateStatusCallback& updateStatusCb)
 {
 	auto self(shared_from_this());
 	boost::asio::spawn(socket_.get_io_service(),
-		[this, self, &updateStatusCb](boost::asio::yield_context yield)
+		[this, self, updateStatusCb](boost::asio::yield_context yield)
 	{
 		bool all_send = true;
 		boost::system::error_code ec;
