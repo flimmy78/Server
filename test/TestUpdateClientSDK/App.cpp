@@ -1,4 +1,6 @@
 #include"UpdateClient.h"
+#include <thread>
+
 int main()
 {
 	begin();
@@ -10,7 +12,8 @@ int main()
 		{
 			printf("file_size:%lld,offset:%lld\n", file_size, offset);
 		}
-		printf("%s", error_message.c_str());
+		if (error_message != "")
+			printf("%s\n", error_message.c_str());
 	});
 	stop();
 	return 0;
